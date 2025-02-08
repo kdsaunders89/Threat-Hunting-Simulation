@@ -150,6 +150,6 @@ The user "employee" on the "Kevon-Projects-" device initiated and completed the 
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `Kevon-Projects-` by the user `employee`. The device was isolated, and the user's direct manager was notified.
+TOR usage was confirmed on the endpoint `Kevon-Projects-` by the user `labuser`. The device was isolated, and the user's direct manager was notified.
 
 ---

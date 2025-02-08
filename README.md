@@ -30,15 +30,15 @@ Searched for any file that had the string "tor" in it and discovered what looks 
 **Query used to locate events:**
 
 ```kql
-DeviceFileEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where InitiatingProcessAccountName == "employee"  
-| where FileName contains "tor"  
-| where Timestamp >= datetime(2024-11-08T22:14:48.6065231Z)  
-| order by Timestamp desc  
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
+DeviceFileEvents
+| where DeviceName == "kevon-projects-"
+| where InitiatingProcessAccountName == "labuser"
+| where FileName has "tor"
+| order by Timestamp desc
+| project Timestamp, ActionType, FileName, FolderPath, SHA256
+
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/71402e84-8767-44f8-908c-1805be31122d">
+![Screenshot 2025-02-08 at 5 55 12 PM](https://github.com/user-attachments/assets/4b3daad8-bb7d-4323-bca0-97b65f397721)
 
 ---
 
@@ -50,12 +50,12 @@ Searched for any `ProcessCommandLine` that contained the string "tor-browser-win
 
 ```kql
 
-DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe"  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
+DeviceProcessEvents
+| where DeviceName == "kevon-projects-"
+| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.6.exe"
+| project Timestamp, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b07ac4b4-9cb3-4834-8fac-9f5f29709d78">
+![Screenshot 2025-02-08 at 5 55 57 PM](https://github.com/user-attachments/assets/fb6ef6f4-d61a-495a-921f-68fb9ad37ffc)
 
 ---
 
@@ -72,7 +72,8 @@ DeviceProcessEvents
 | project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine  
 | order by Timestamp desc
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b13707ae-8c2d-4081-a381-2b521d3a0d8f">
+![Screenshot 2025-02-08 at 5 56 35 PM](https://github.com/user-attachments/assets/ef75d233-caaa-4f00-90b7-1b9f6235e940)
+
 
 ---
 
@@ -83,13 +84,10 @@ Searched for any indication the TOR browser was used to establish a connection u
 **Query used to locate events:**
 
 ```kql
-DeviceNetworkEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where InitiatingProcessAccountName != "system"  
-| where InitiatingProcessFileName in ("tor.exe", "firefox.exe")  
-| where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150", "80", "443")  
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath  
-| order by Timestamp desc
+DeviceNetworkEvents
+| where DeviceName == "kevon-projects-"
+| where RemotePort in (9001, 9030, 9040, 9050, 9051, 9150)
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFolderPath|
 ```
 <img width="1212" alt="image" src="https://github.com/user-attachments/assets/87a02b5b-7d12-4f53-9255-f5e750d0e3cb">
 
